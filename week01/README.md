@@ -2,7 +2,8 @@
 
 ## Create week01 directory
 ```
-mkdir ~BMMB852/week01
+mkdir ~/BMMB852/week01
+cd BMMB852
 ls
 ```
 **README.md week01**
@@ -15,6 +16,15 @@ samtools --version
 
 ## Create a nested directory structure
 ```
-cd week01 
-mkdir -p ~/week01/folder1/folder2/folder3
+mmkdir -p ~/BMMB852/week01/dir1/dir2/dir3
 ```
+## Show commands that create files in different directories
+### Create a file in dir1
+```
+cd week01/dir1
+touch file1
+ls
+'''
+**dir2  file1**
+
+
