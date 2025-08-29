@@ -12,4 +12,4 @@ ls`
 
 ## Create a nested directory structure
 ```cd week01 
-mkdir -p ~/week01/folder1/folder2/folder3```
+mkdir -p ~/week01/folder1/folder2/folder3
