@@ -5,13 +5,13 @@
 mkdir ~BMMB852/week01
 ls
 ```
-***README.md week01***
+**README.md week01**
 
 ## Determine samtools version
 ```
 samtools --version
 ```
-***samtools 1.22.1***
+**samtools 1.22.1**
 
 ## Create a nested directory structure
 ```
