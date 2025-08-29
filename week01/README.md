@@ -4,15 +4,15 @@
 ```
 cd ~/BMMB852
 mkdir week01
-ls
 ```
-**README.md week01**
 
 ## Create week01 README file
 ```
 cd week01
 touch README.md
+ls
 ```
+**README.md**
 
 ## Determine samtools version
 ```
