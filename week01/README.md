@@ -10,15 +10,13 @@ mkdir week01
 ```
 cd week01
 touch README.md
-ls
 ```
-**README.md**
 
 ## Determine samtools version
 ```
 samtools --version
+    samtools 1.22.1
 ```
-**samtools 1.22.1**
 
 ## Create a nested directory structure
 ```
@@ -29,9 +27,7 @@ mkdir -p dir1/dir2/dir3
 ```
 cd dir1
 touch file1
-ls
 ```
-**dir2  file1**
 
 ### Create a file in dir2
 ```
@@ -48,11 +44,11 @@ touch dir2/dir3/file3
 ```
 cd ..
 pwd
+    /Users/ellamessner/BMMB852/week01
 ```
-**/Users/ellamessner/BMMB852/week01**
 ### Absolute path example
 ```
 cd ~/BMMB852/week01/dir1/dir2
 pwd
+    /Users/ellamessner/BMMB852/week01/dir1/dir2
 ```
-**/Users/ellamessner/BMMB852/week01/dir1/dir2**
