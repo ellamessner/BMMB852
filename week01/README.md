@@ -15,7 +15,6 @@ touch README.md
 ## Determine samtools version
 ```
 samtools --version
-    samtools 1.22.1
 ```
 ### Output: ###
 ```
