@@ -17,6 +17,12 @@ touch README.md
 samtools --version
     samtools 1.22.1
 ```
+### Output ###
+```
+samtools 1.22.1
+Using htslib 1.22.1
+Copyright (C) 2025 Genome Research Ltd.
+```
 
 ## Create a nested directory structure
 ```
