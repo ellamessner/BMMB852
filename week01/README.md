@@ -16,7 +16,7 @@ touch README.md
 ```
 samtools --version
 ```
-### Output: ###
+#### Output: ####
 ```
 samtools 1.22.1
 Using htslib 1.22.1
