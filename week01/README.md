@@ -44,21 +44,19 @@ touch dir2/file2
 touch dir2/dir3/file3
 ```
 
-## Show how to use relative and absolute paths
-### Relative path example
+## Access files with relative and absolute paths
+### Relative path 
 ```
-cd ..
-pwd
-```
-#### Output: ####
-```
-/Users/ellamessner/BMMB852/week01
+cat file1
+cat dir2/file2
+cat dir2/dir3/file3
 ```
 
 ### Absolute path example
 ```
-cd ~/BMMB852/week01/dir1/dir2
-pwd
+cat ~/BMMB852/week01/dir1/file1
+cat ~BMMB852/week01/dir1/dir2/file2
+cat ~BMMB852/week01/dir1/dir2/dir3/file3
 ```
 
 #### Output: ####
