@@ -31,33 +31,34 @@ mkdir -p dir1/dir2/dir3
 ### Create a file in dir1
 ```
 cd dir1
-touch file1
+Echo 'File 1!' > file1
 ```
 
 ### Create a file in dir2
 ```
-touch dir2/file2
+Echo 'File 2!' > dir2/file2
 ```
 
 ### Create a file in dir3
 ```
-touch dir2/dir3/file3
+Echo 'File 3!' > dir2/dir3/file3
 ```
 
 ## Access files with relative and absolute paths
-### Relative path 
+### Relative path ###
 ```
 cat file1
 cat dir2/file2
 cat dir2/dir3/file3
 ```
 
-### Absolute path example
+### Absolute path ###
 ```
 cat ~/BMMB852/week01/dir1/file1
 cat ~/BMMB852/week01/dir1/dir2/file2
 cat ~/BMMB852/week01/dir1/dir2/dir3/file3
 ```
+These files are empty, so there is no output. Typcially these commands would print 
 
 #### Output: ####
 ```
