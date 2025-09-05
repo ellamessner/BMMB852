@@ -55,8 +55,8 @@ cat dir2/dir3/file3
 ### Absolute path example
 ```
 cat ~/BMMB852/week01/dir1/file1
-cat ~BMMB852/week01/dir1/dir2/file2
-cat ~BMMB852/week01/dir1/dir2/dir3/file3
+cat ~/BMMB852/week01/dir1/dir2/file2
+cat ~/BMMB852/week01/dir1/dir2/dir3/file3
 ```
 
 #### Output: ####
