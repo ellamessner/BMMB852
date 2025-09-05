@@ -58,9 +58,3 @@ cat ~/BMMB852/week01/dir1/file1
 cat ~/BMMB852/week01/dir1/dir2/file2
 cat ~/BMMB852/week01/dir1/dir2/dir3/file3
 ```
-These files are empty, so there is no output. Typcially these commands would print 
-
-#### Output: ####
-```
-/Users/ellamessner/BMMB852/week01
-```
