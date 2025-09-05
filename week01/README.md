@@ -17,7 +17,7 @@ touch README.md
 samtools --version
     samtools 1.22.1
 ```
-### Output ###
+### Output: ###
 ```
 samtools 1.22.1
 Using htslib 1.22.1
@@ -50,11 +50,19 @@ touch dir2/dir3/file3
 ```
 cd ..
 pwd
-    /Users/ellamessner/BMMB852/week01
 ```
+#### Output: ####
+```
+/Users/ellamessner/BMMB852/week01
+```
+
 ### Absolute path example
 ```
 cd ~/BMMB852/week01/dir1/dir2
 pwd
-    /Users/ellamessner/BMMB852/week01/dir1/dir2
+```
+
+#### Output: ####
+```
+/Users/ellamessner/BMMB852/week01
 ```
