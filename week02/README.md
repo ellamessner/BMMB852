@@ -1,8 +1,10 @@
 # Week 2 Assignment
 
 ## Download gff file for *Takifugu rubripes* ##
+```
 wget https://ftp.ensembl.org/pub/current_gff3/takifugu_rubripes/Takifugu_rubripes.fTakRub1.2.115.abinitio.gff3.gz
 gunzip Takifugu_rubripes.fTakRub1.2.115.gff3.gz
+```
 
 ## 1. Tell us a bit about the organism ##
 ____fdksaof jkdsa jfkdasl jfkdsaljf 
