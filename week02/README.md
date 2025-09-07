@@ -1,6 +1,6 @@
 # Week 2 Assignment
 
-## Download gff file for * Takifugu rubripes* ##
+## Download gff file for *Takifugu rubripes* ##
 wget https://ftp.ensembl.org/pub/current_gff3/takifugu_rubripes/Takifugu_rubripes.fTakRub1.2.115.abinitio.gff3.gz
 gunzip Takifugu_rubripes.fTakRub1.2.115.gff3.gz
 
@@ -72,6 +72,7 @@ I am unfamiliar with _______. It is ______.
 ## 6. What are the top-ten most annotated feature types (column 3) across the genome? ##
 ```
 cat takifugu_cleaned | cut -f 3 | sort-uniq-count-rank | head -10
+
 #output
 	684302	exon
 	645647	CDS
