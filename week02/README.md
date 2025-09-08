@@ -88,7 +88,7 @@ cat takifugu_cleaned | cut -f 3 | sort-uniq-count-rank | head -10
 	816 	pseudogene
 ```
 ## 7. Having analyzed this GFF file, does it seem like a complete and well-annotated organism? ##
-Yes, this seems to be a complete, well-annotated genome. The annotation included 22 chromosomes that are each longer than 10 million bases.
+Yes, this seems to be a well-annotated genome. The annotation included 22 chromosomes that are each longer than 10 million bases. However, there are many unplaced scaffolds, so there remains work to be done.
 
 ## 8. Share any other insights you might note. ##
 In my research on *T. rubipres* I read that it has one of the smallest genomes of any vertebrate. I was surprised to see that it has a similar number of genes as humans, despite the genome being 7.5 times smaller.
