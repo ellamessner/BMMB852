@@ -17,7 +17,7 @@ cat Takifugu_rubripes.fTakRub1.2.115.gff3 | grep sequence-region | grep CAAJ | w
 ```
 There are 105 unplaced scaffolds
 
-### Count chromosomes ###
+### Count named chromosomes ###
 ```
 cat Takifugu_rubripes.fTakRub1.2.115.gff3 | grep sequence-region | grep -v 'CAAJ' | wc -l
 ```
