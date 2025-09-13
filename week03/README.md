@@ -28,3 +28,21 @@ gunzip Caulobacter_vibrioides_cb15_gca_000006905.ASM690v1.62.gff3.gz
 mv Caulobacter_vibrioides_cb15_gca_000006905.ASM690v1.62.gff3 cb15.gff
 
 ```
+
+## genome length?? ##
+
+## features ##
+```
+cat cb15.gff | grep -v '#' | cut -f 3 | sort-uniq-count-rank
+```
+**output:**
+```
+3794	exon
+3737	CDS
+3737	gene
+3737	mRNA
+57  	ncRNA_gene
+51  	tRNA
+6   	rRNA
+1   	chromosome
+```
