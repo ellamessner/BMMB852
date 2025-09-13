@@ -1,11 +1,30 @@
 # Week 3 Assignment #
 
-## Download *Caulobacter vibroides* CB15 genome fasta ##
+## Download *Caulobacter vibrioides* CB15 genome fasta ##
 
 ```
-#download fasta from ensembl
+#download fasta from Ensembl
 wget https://ftp.ensemblgenomes.ebi.ac.uk/pub/bacteria/current/fasta/bacteria_0_collection/caulobacter_vibrioides_cb15_gca_000006905/dna/Caulobacter_vibrioides_cb15_gca_000006905.ASM690v1.dna.toplevel.fa.gz
 
 #unzip file
+gunzip Caulobacter_vibrioides_cb15_gca_000006905.ASM690v1.dna.toplevel.fa.gz
+
+#rename file
+mv Caulobacter_vibrioides_cb15_gca_000006905.ASM690v1.dna.toplevel.fa cb15.fasta
+
+
+```
+## Download *Caulobacter vibrioides* CB15 genome gff ##
+
+
+```
+#download gff from Ensembl
+wget https://ftp.ensemblgenomes.ebi.ac.uk/pub/bacteria/current/gff3/bacteria_0_collection/caulobacter_vibrioides_cb15_gca_000006905/Caulobacter_vibrioides_cb15_gca_000006905.ASM690v1.62.gff3.gz
+
+#unzip file
+gunzip Caulobacter_vibrioides_cb15_gca_000006905.ASM690v1.62.gff3.gz
+
+#rename file
+mv Caulobacter_vibrioides_cb15_gca_000006905.ASM690v1.62.gff3 cb15.gff
 
 ```
