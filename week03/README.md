@@ -10,7 +10,7 @@ wget https://ftp.ensemblgenomes.ebi.ac.uk/pub/bacteria/current/fasta/bacteria_0_
 gunzip Caulobacter_vibrioides_cb15_gca_000006905.ASM690v1.dna.toplevel.fa.gz
 
 #rename file
-mv Caulobacter_vibrioides_cb15_gca_000006905.ASM690v1.dna.toplevel.fa cb15.fasta
+mv Caulobacter_vibrioides_cb15_gca_000006905.ASM690v1.dna.toplevel.fa cb15.fa
 ```
 ## Download *Caulobacter vibrioides* CB15 genome gff ##
 
@@ -28,13 +28,13 @@ mv Caulobacter_vibrioides_cb15_gca_000006905.ASM690v1.62.gff3 cb15.gff
 
 ## Determine genome length ##
 ```bash
-#make a new fasta file without the header line and determine the character count
-cat cb15.fa | grep -v '>' > cb15cleaned.fa | wc -c
-#Output: 4080000. This is longer than expected
+seqkit stats cb15.fa
+```
 
-#remove all non-base characters from the fasta and determine the character count
-cat cb15cleaned.fa | tr -cd 'ATCG' | wc -c
-#Output: 4016947
+**Output:**
+```bash
+file        format  type  num_seqs    sum_len    min_len    avg_len    max_len
+cb15.fasta  FASTA   DNA          1  4,016,947  4,016,947  4,016,947  4,016,947
 ```
 The *C. vibrioides* genome is 4016947 bases long.
 
@@ -43,7 +43,7 @@ The *C. vibrioides* genome is 4016947 bases long.
 ```bash
 cat cb15.gff | grep -v '#' | cut -f 3 | sort-uniq-count-rank
 ```
-**output:**
+**Output:**
 ```
 3794	exon
 3737	CDS
