@@ -65,4 +65,4 @@ cat cb15.gff | awk '$3=="mRNA" || $3=="gene"' > cb15_genes_mrna.gff
 ## Visualize the original and simplified GFF in IGV ##
 Below, I show the gene CC_1041 and its corresponding transcript. In the middle reading frame shown in the transcript table, we see that this gene begins with a start codon and ends with a stop codon.
 
-![alt text](image.png)
+![alt text](igv_screenshot.png)
