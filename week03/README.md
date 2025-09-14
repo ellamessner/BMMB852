@@ -29,9 +29,9 @@ mv Caulobacter_vibrioides_cb15_gca_000006905.ASM690v1.62.gff3 cb15.gff
 
 ```
 
-## genome length?? ##
+## Determine genome length ##
 
-## features ##
+## Determine how many features of each type the GFF contains ##
 ```
 cat cb15.gff | grep -v '#' | cut -f 3 | sort-uniq-count-rank
 ```
@@ -46,3 +46,15 @@ cat cb15.gff | grep -v '#' | cut -f 3 | sort-uniq-count-rank
 6   	rRNA
 1   	chromosome
 ```
+## Separate the intervals of type "gene" or "transcript" into a different file. ##
+As demonstrated above, this annotation does not have any transcripts. Instead, I separated genes and mRNA.
+
+```
+#subset genes and mRNA and save as a new file
+cat cb15.gff | awk '$3=="mRNA" || $3=="gene"' > cb15_genes_mrna.gff
+```
+
+## Visualize the original and simplified GFF in IGV ##
+Below, I show the gene CC_1041 and its corresponding transcript. In the middle reading frame shown in the transcript table, we see that this gene begins with a start codon and ends with a stop codon.
+
+![alt text](image.png)
