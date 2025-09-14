@@ -58,11 +58,10 @@ cat cb15.gff | grep -v '#' | cut -f 3 | sort-uniq-count-rank
 As demonstrated above, this annotation does not include any transcripts. Instead, I separated genes and mRNA.
 
 ```bash
-#subset genes and mRNA and save as a new file
-cat cb15.gff | awk '$3=="mRNA" || $3=="gene"' > cb15_genes_mrna.gff
+grep -E '\t(mRNA|gene)\t' cb15.gff > cb15_genes_mrna.gff
 ```
 
 ## Visualize the original and simplified GFF in IGV ##
-Below, I show the gene CC_1041 and its corresponding transcript. In the middle reading frame shown in the transcript table, we see that this gene begins with a start codon and ends with a stop codon.
+Below, I show the gene CC_1041 and its corresponding transcript. In the middle reading frame shown in the translation table, we see that this gene begins with a start codon and ends with a stop codon.
 
 ![alt text](igv_screenshot.png)
