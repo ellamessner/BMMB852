@@ -62,6 +62,10 @@ grep -E '\t(mRNA|gene)\t' cb15.gff > cb15_genes_mrna.gff
 ```
 
 ## Visualize the original and simplified GFF in IGV ##
-Below, I show the gene CC_1041 and its corresponding transcript. In the middle reading frame shown in the translation table, we see that this gene begins with a start codon and ends with a stop codon.
+Below, I show the beginning and end of gene CC_1041 and its corresponding transcript. In the bottom reading frame shown in the translation table, we see that this gene begins with a start codon and ends with a stop codon.
 
-![alt text](igv_screenshot.png)
+## Beginning of gene ##
+![alt text](start_codon.png)
+
+## End of gene ##
+![alt text](stop_codon.png)
