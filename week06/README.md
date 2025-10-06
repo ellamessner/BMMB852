@@ -4,11 +4,11 @@
 My makefile contains the following targets:\
 **genome:** downloads a reference genome from NCBI.\
 **index:** indexes the reference genome\
--**simulate:** creates simulated reads using ART\
--**reads:** downloads reads from SRA and generates read statistics\
--**qc:** trims reads and generates a fastqc report before and after trimming\
--**align:** aligns trimmed reads to the reference genome\
--**stats:** generates alignment statistics
+**simulate:** creates simulated reads using ART\
+**reads:** downloads reads from SRA and generates read statistics\
+**qc:** trims reads and generates a fastqc report before and after trimming\
+**align:** aligns trimmed reads to the reference genome\
+**stats:** generates alignment statistics
 
 ## Testing pipeline using simulated reads
 I set the following variables in the makefile in order to create 100-base simulated reads with 1x coverage for the ebolavirus reference genome AF086833:
