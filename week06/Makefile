@@ -1,4 +1,10 @@
 
+#SRR ID or simulated read ID
+READID="SRR35257019"
+
+#NCBI genome accession number
+GENOME=AF086833
+
 #directory for reads
 READSDIR=reads
 
@@ -24,12 +30,6 @@ REF=${GENOME}.fasta
 
 #BAM file name
 BAM=${ALDIR}/${READID}.bam
-
-#SRR ID or simulated read ID
-READID="SRR1972958"
-
-#NCBI genome accession number
-GENOME=AF086833.2
 
 #number of reads to download
 NREADS=9500
@@ -71,11 +71,11 @@ MAKEFLAGS += --no-builtin-rules
 
 #download the reference genome
 genome:
-#make directory for genome
+	#make directory for genome
 	mkdir -p ${GENDIR}
-#download genome
+	#download genome
 	efetch -db nuccore -format fasta -id ${GENOME} > ${GENDIR}/${REF}
-#show genome stats
+	#show genome stats
 	seqkit stats ${GENDIR}/${REF}
 
 #index the reference genome
@@ -84,46 +84,46 @@ index:
 
 #simulate reads from the reference genome
 simulate:
-#make directory for reads
+	#make directory for reads
 	mkdir -p ${READSDIR}
-#make simulated reads
+	#make simulated reads
 	art_illumina -ss ${MODEL} -i ${GENDIR}/${REF} \
 	-p -l ${L} -f ${DEPTH} \
 	-m 200 -s 10 -o ${PREFIX}
-#change file extension to fastq
+	#change file extension to fastq
 	mv ${PREFIX}1.fq ${PREFIX}1.fastq
 	mv ${PREFIX}2.fq ${PREFIX}2.fastq
 
 #download the reads
 reads:
-#make directory for reads
+	#make directory for reads
 	mkdir -p ${READSDIR}
-#download reads
+	#download reads
 	fastq-dump -X ${NREADS} -F --outdir ${READSDIR} --split-files ${READID}
-#generate read stats
+	#generate read stats
 	seqkit stats ${R1} ${R2}
 
 qc:
-#make directory for qc reports
+	#make directory for qc reports
 	mkdir -p ${QC}
-#generate qc reports
+	#generate qc reports
 	fastqc reads/${READID}*.fastq --outdir ${QC}
-#trim reads
+	#trim reads
 	fastp --adapter_sequence=${ADAPTER} --cut_tail -i ${R1} -I ${R2} -o ${TRIM1} -O ${TRIM2}
-#generate fastqc report for trimmed reads
+	#generate fastqc report for trimmed reads
 	fastqc ${TRIM1} ${TRIM2} --outdir ${QC}
-#generate read stats for trimmed reads
+	#generate read stats for trimmed reads
 	seqkit stats ${TRIM1} ${TRIM2}
 
-#align the reads to the reference genome
+	#align the reads to the reference genome
 align:
-#make directory for alignments
+	#make directory for alignments
 	mkdir -p ${ALDIR}
-#align reads and convert to sorted BAM
+	#align reads and convert to sorted BAM
 	bwa mem ${GENDIR}/${GENOME}.fasta ${TRIM1} ${TRIM2} | samtools sort > ${BAM}
-#index the BAM file
+	#index the BAM file
 	samtools index ${BAM}
 
-#generate alignment statistics
+	#generate alignment statistics
 stats:
 	samtools flagstat ${BAM}
