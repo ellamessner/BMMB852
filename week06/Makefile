@@ -1,6 +1,6 @@
 
-#SRR ID or simulated read ID
-READID="SRR35257019"
+#SRR ID or simulated read ID. If using simulated reads, READID should match PREFIX.
+READID="SRR1972958"
 
 #NCBI genome accession number
 GENOME=AF086833
@@ -15,7 +15,7 @@ GENDIR=genome
 ALDIR=alignments
 
 #directory for qc reports
-QC=qc_reports
+QC=reports
 
 #read file names
 R1=${READSDIR}/${READID}_1.fastq
@@ -44,7 +44,7 @@ DEPTH=1
 L=100
 
 # The prefix for the simulated reads
-PREFIX=reads/art_reads_
+PREFIX=art_reads_
 
 # Model for ART read simulation
 MODEL=HS25
@@ -69,7 +69,7 @@ MAKEFLAGS += --warn-undefined-variables
 # Disable built-in rules.
 MAKEFLAGS += --no-builtin-rules
 
-#download the reference genome
+#download and index the reference genome
 genome:
 	#make directory for genome
 	mkdir -p ${GENDIR}
@@ -77,9 +77,6 @@ genome:
 	efetch -db nuccore -format fasta -id ${GENOME} > ${GENDIR}/${REF}
 	#show genome stats
 	seqkit stats ${GENDIR}/${REF}
-
-#index the reference genome
-index:
 	bwa index ${GENDIR}/${REF}
 
 #simulate reads from the reference genome
@@ -89,10 +86,10 @@ simulate:
 	#make simulated reads
 	art_illumina -ss ${MODEL} -i ${GENDIR}/${REF} \
 	-p -l ${L} -f ${DEPTH} \
-	-m 200 -s 10 -o ${PREFIX}
+	-m 200 -s 10 -o ${READSDIR}/${PREFIX}
 	#change file extension to fastq
-	mv ${PREFIX}1.fq ${PREFIX}1.fastq
-	mv ${PREFIX}2.fq ${PREFIX}2.fastq
+	mv ${READSDIR}/${PREFIX}1.fq ${READSDIR}/${PREFIX}1.fastq
+	mv ${READSDIR}/${PREFIX}2.fq ${READSDIR}/${PREFIX}2.fastq
 
 #download the reads
 reads:
@@ -127,3 +124,6 @@ align:
 	#generate alignment statistics
 stats:
 	samtools flagstat ${BAM}
+
+#all steps
+all: genome reads qc align stats
