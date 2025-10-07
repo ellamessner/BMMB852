@@ -3,8 +3,7 @@
 
 ## Summary
 My makefile contains the following code:\
-**genome:** downloads a reference genome from NCBI.\
-**index:** indexes the reference genome\
+**genome:** downloads and indexes a reference genome from NCBI.\
 **simulate:** creates simulated reads using ART\
 **reads:** downloads reads from SRA and generates read statistics\
 **qc:** trims reads and generates a fastqc report before and after trimming\
@@ -27,7 +26,7 @@ genome/AF086833.fasta  FASTA   DNA          1   18,959   18,959   18,959   18,95
 
 ## Creating simulated reads
 
-This target uses the reference genome to create simulated paired reads. By default, 100-base-long reads are generated to reach an average coverage of 1x.
+This target uses the reference genome to create simulated paired reads. By default, enouch 100-base-long reads are generated to reach an average coverage of 1x.
 
 ```bash
 make simulate GENOME=AF086833
@@ -41,7 +40,7 @@ reads/art_reads_2.trimmed.fastq  FASTQ   DNA         95    9,492       92     99
 
 
 ## Quality control
-This target generates a fastqc report for the raw reads, trims reads, and then generates a fastqc report for the trimmed reads. If using simulated reads, set READID=art_reads. Note that trimming should not be required for simulated reads.
+This target generates a fastqc report for the raw reads, trims reads, and then generates a fastqc report for the trimmed reads. If using simulated reads, set READID=art_reads. Note that the quality of simulated reads should be high and trimming should not be required.
 
 ```bash
 make qc READID=art_reads
@@ -91,7 +90,7 @@ The default SRR ID is SRR35257019.
 make reads READID=SRR1972958
 ```
 
-**output:**
+**output - read statistics:**
 ```
 file                      format  type  num_seqs  sum_len  min_len  avg_len  max_len
 reads/SRR1972958_1.fastq  FASTQ   DNA      9,500  959,500      101      101      101
@@ -102,7 +101,7 @@ reads/SRR1972958_2.fastq  FASTQ   DNA      9,500  959,500      101      101     
 ```bash
 make qc READID=SRR1972958
 ```
-**Statistics for trimmed reads:**
+**output - statistics for trimmed reads:**
 ```
 file                              format  type  num_seqs  sum_len  min_len  avg_len  max_len
 reads/SRR1972958_1.trimmed.fastq  FASTQ   DNA      6,847  618,237       15     90.3      101
@@ -110,7 +109,7 @@ reads/SRR1972958_2.trimmed.fastq  FASTQ   DNA      6,847  527,338       15      
 ```
 
 ## Align reads to reference genome and generate statistics
-This code assumes paired reads and will need to be edited 
+This code assumes paired reads and will need to be edited for single-end reads.
 ```bash
 make align stats READID=SRR1972958 GENOME=AF086833
 ```
