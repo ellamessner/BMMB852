@@ -176,10 +176,10 @@ This gene spans from 5900-8305.
 
 ```bash
 # Extract alignments this region
-samtools view -b input.bam chr1:1000-2000 > alignments/region.bam
+samtools view -b alignments/SRR6007457.bam AF086833.2:5900-8305 > alignments/gp.bam
 
 # Index the extracted BAM file
-samtools index alignments/region.bam
+samtools index alignments/gp.bam
 
 #generate stats
 samtools flagstat alignments/gp.bam
