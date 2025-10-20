@@ -11,9 +11,6 @@ GEN_NAME=Ebola_1976
 #paired or single-end reads; set to true for paired-end, false for single-end
 PAIRED=true
 
-#location sample collected
-LOCATION=Jawie
-
 #directory for qc reports
 QC=reports
 
@@ -184,8 +181,8 @@ stats:
 	sort -k1,1 -k2,2n > ${BG}
 	#convert bedgraph to bigwig
 	bedGraphToBigWig ${BG} ${REF}.fai ${BW}
-
-
+	#remove temporary bedgraph file
+	rm alignments/*.bg
 
 
 
