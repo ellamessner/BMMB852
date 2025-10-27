@@ -26,6 +26,12 @@ Download and index the reference genome
 make genome GENOME=AF086833
 ```
 
+To run the pipeline for a single sample, the following code can be used:
+```bash
+make reads qc align stats SRR=SRR1553422 SAMPLEID=EM104.FCH9 \
+GENOME=AF086833 PAIRED=true NREADS=10000
+```
+
 The reads can be downloaded, trimmed, and aligned in parallel using the following code:
 ```bash
 cat design.csv |\

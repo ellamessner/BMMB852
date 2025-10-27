@@ -84,6 +84,8 @@ help:
 	@echo "  align       : Align the trimmed reads to the reference genome"
 	@echo "  stats       : Generate alignment statistics"
 
+.PHONY: genome reads qc align stats
+
 #download and index the reference genome
 genome:
 	#make directory for genome
@@ -96,22 +98,7 @@ genome:
 	#download gff
 	efetch -db nuccore -format gff3 -id ${GENOME} > ${GFF}
 
-
-
-#simulate reads from the reference genome
-simulate:
-	#make directory for reads
-	mkdir -p $(dir ${R1})
-	#make simulated reads
-	art_illumina -ss ${MODEL} -i ${GENDIR}/${REF} \
-	-p -l ${L} -f ${DEPTH} \
-	-m 200 -s 10 -o ${READSDIR}/${PREFIX}
-	#change file extension to fastq
-	mv ${READSDIR}/${PREFIX}1.fq ${READSDIR}/${PREFIX}1.fastq
-	mv ${READSDIR}/${PREFIX}2.fq ${READSDIR}/${PREFIX}2.fastq
-
 #download the reads
-.PHONY: reads
 reads:
 	#download reads and split if paired-end
 	if [ "${PAIRED}" = true ] ; then \
@@ -130,7 +117,6 @@ reads:
 
 
 #perform quality control and trimming on the reads
-.PHONY: qc
 qc: 
 	#make directory for qc reports
 	mkdir -p ${QC}
@@ -154,7 +140,6 @@ qc:
 	fi
 
 #align the reads to the reference genome
-PHONY: align
 align:
 	#make directory for alignments
 	mkdir -p $(dir ${BAM})
