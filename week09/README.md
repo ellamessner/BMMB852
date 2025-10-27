@@ -13,6 +13,7 @@ My makefile contains the following code:\
 The design file contains the following columns:
 - **srr**: the SRA run ID for each sample
 - **sampleid**: an identification number for each library prep, assigned by authors of Gire et al
+- **paired**: whether the reads are paired-end (true) or single-end (false)
 
 My default design file contains ten samples from PRJNA257197, which is the bioproject from Gire et al and used Illumina sequencing (paired-end) and two samples from PRJNA393748 which used ion torrent sequencing (single-end).
 
