@@ -50,4 +50,4 @@ This results in the following output:
 - Regions between genes tend to have lower coverage than genic regions. As visualized below, most samples have dips in coverage around 3kb, 4.5kb, and 11kb, corresponding to the small intergenic regions.
 
 
-![alt text](igv-1.png)
+![alt text](igv.png)
