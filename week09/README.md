@@ -35,7 +35,7 @@ GENOME=AF086833 PAIRED=true NREADS=10000
 The reads can be downloaded, trimmed, and aligned in parallel using the following code:
 ```bash
 cat design.csv |\
-parallel -j 6 --colsep , --header : \
+parallel -j 6 --eta --lb --colsep , --header : \
 make reads qc align stats SRR={srr} SAMPLEID={sampleid} \
 GENOME=AF086833 PAIRED={paired} NREADS=10000
 ```
