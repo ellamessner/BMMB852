@@ -190,10 +190,3 @@ variants:
 
 	#index the vcf file
 	bcftools index ${VCF}
-
-	#merge all vcf files into a single vcf file
-	#bcftools merge -O z variants/*.vcf.gz > variants/all_variants.vcf.gz
-
-#remove lines from design file containing samples starting with WU and sample EM98
-clean_design:
-	cat design.csv | grep -v WU | grep -v EM098 > design_clean.csv

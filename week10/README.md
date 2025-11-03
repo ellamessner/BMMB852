@@ -17,9 +17,7 @@ The design file contains the following columns:
 - **sampleid**: an identification number for each library prep, assigned by authors of Gire et al
 - **paired**: whether the reads are paired-end (true) or single-end (false)
 
-My default design file contains ten samples from PRJNA257197, which is the bioproject from Gire et al and used Illumina sequencing (paired-end) and two samples from PRJNA393748 which used ion torrent sequencing (single-end).
-
-Since some samples were sequenced multiple times, I used library prep IDs rather than original sample IDs to avoid duplicate file names. Each library prep ID begins with the original sample ID. (ex. EM096_r1.ADXX and EM096.FCH9 are two different runs from EM096)
+My default design file contains nine samples from PRJNA257197. Since some samples were sequenced multiple times, I used library prep IDs rather than original sample IDs to avoid duplicate file names. Each library prep ID begins with the original sample ID. (ex. EM096_r1.ADXX and EM096.FCH9 are two different runs from EM096)
 
 ## Code to run pipeline
 
@@ -41,6 +39,12 @@ parallel -j 6 --eta --lb --colsep , --header : \
 make reads qc align stats variants SRR={srr} SAMPLEID={sampleid} \
 GENOME=AF086833 PAIRED={paired} NREADS=10000
 ```
+
+The following code can be used to merge all vcf files:
+```bash
+bcftools merge -O z variants/*.vcf.gz > variants/all_variants.vcf.gz
+```
+
 This results in the following output:
 - **genome**:
   - indexed reference genome
@@ -56,13 +60,9 @@ This results in the following output:
 
 - **variants**:
   - vcf file for each sample containing called variants
+  - merged vcf file containing  variants from all samples
 
-## Merge vcf files
-```bash
-bcftools merge -O z variants/*.vcf.gz > variants/all_variants.vcf.gz
-```
+## Visualizing variants
+The image below shows three variants, all of which are single nucleotide variants. Two of these variants appear in all samples. The other variant is present in six of the nine samples, with the other three the same as the reference genome.
 
-## Notes from variant calling
--shows two variants (SNPs but whatever he likes to call them instead) for which all samples differ from the reference genome and one variant for which only some samples differ from the reference genome.
-
-![alt text](<Screenshot 2025-11-02 at 7.38.54 PM.png>)
+![alt text](image.png)
