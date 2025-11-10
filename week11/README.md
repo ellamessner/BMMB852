@@ -22,8 +22,8 @@ The design file contains the following columns:
 ## Variant effect prediction
 When trying to download the snpEff database, I repeatedly got an "error while connecting" message that I wasn't able to resolve. Instead, I used ENSEMBL's VEP tool in the command line.
 
-## Installing ensemble VEP
-My makefile requires that ensembl VEP be installed in a separate environment. The default location is ~/ensembl. This installation was completed using the following code:
+## Installing Ensembl VEP
+My makefile requires that Ensembl VEP be installed in a separate environment. The default location is ~/ensembl. This installation was completed using the following code:
 ```bash
 # Create a new conda environment for VEP
 micromamba create -y -n vep \
