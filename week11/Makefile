@@ -98,7 +98,7 @@ help:
 	@echo "  align       : Align the trimmed reads to the reference genome"
 	@echo "  stats       : Generate alignment statistics"
 
-.PHONY: genome reads qc align stats variants
+.PHONY: genome reads qc align stats variants merge vep
 
 #download and index the reference genome
 genome:
@@ -201,12 +201,14 @@ variants:
 merge:
 	bcftools merge -O z $(dir ${VCF})*vcf.gz > $(dir ${VCF})all_variants.vcf.gz
 
-#Download database for variant effect prediction
-vep:
+index_gff:
 	#sort and compress GFF file
 	cat ${GFF} | sort -k1,1 -k4,4n -k5,5n -t$$'\t' | awk 'NF' | bgzip -c > ${GFF}.gz
 	#Index the GFF file
 	tabix -p gff ${GFF}.gz
+
+#Download database for variant effect prediction
+vep:
 	#make directory for annotation output
 	mkdir -p $(dir ${ANN})
 	#Run VEP

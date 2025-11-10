@@ -54,7 +54,7 @@ make genome GENOME=KJ660346.1 GEN_NAME=ebola_2014
 
 To run the pipeline for a single sample, the following code can be used:
 ```bash
-make reads qc align stats variants vep SRR=SRR1553422 SAMPLEID=EM104.FCH9 GENOME=KJ660346.1 GEN_NAME=Ebola_2014  PAIRED=true NREADS=10000
+make reads qc align stats variants vep SRR=SRR1553422 SAMPLEID=EM104.FCH9 GENOME=KJ660346.1 GEN_NAME=ebola_2014  PAIRED=true NREADS=10000
 ```
 
 The reads can be downloaded, trimmed, aligned, and variants called and annotated in parallel using the following code:
