@@ -49,7 +49,7 @@ perl INSTALL.pl --NO_HTSLIB --NO_TEST
 
 Download and index the reference genome
 ```bash
-make genome GENOME=KJ660346.1 GEN_NAME=ebola_2014
+make genome index_gff GENOME=KJ660346.1 GEN_NAME=ebola_2014
 ```
 
 To run the pipeline for a single sample, the following code can be used:
