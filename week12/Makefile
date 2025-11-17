@@ -16,9 +16,6 @@ GENE=SMAD4
 #Treatment, N for normal, T for tumor
 TREATMENT=T
 
-#VCF file name
-VCF=vcf/${CHR}.vcf.gz
-
 #BAM file URL
 BAM_URL=https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data_somatic/HG008/Liss_lab/Element-AVITI-20241216/HG008-N-D_Element-StdInsert_77x_GRCh38-GIABv3.bam
 
@@ -29,9 +26,15 @@ BAM=bam/${GENE}_${TREATMENT}.bam
 REGION=chr18:51,028,528-51,085,045
 
 #VCF file name
-VCF=vcf/${GENE}.vcf.gz
+VCF=vcf/${GENE}_${TREATMENT}.vcf.gz
 
-.PHONY: ref bam variants
+#Sample ID
+SAMPLEID=DeepVariant
+
+#VCF_URL
+VCF_URL=https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data_somatic/HG008/Liss_lab/analysis/Ultima_DeepVariant-somatic-SNV-INDEL_20240822/HG008_edv_AF_recalibration.result.PASS.vcf.gz
+
+.PHONY: ref bam variants vcf_download merge
 
 #Download reference genome and extract chromosome of interest
 ref:
@@ -63,32 +66,23 @@ variants:
 	mkdir -p $(dir ${VCF})
 
 	# Call variants using bcftools
-	bcftools mpileup ${F1} -O u -f ${REF} ${BAM} | \
+	bcftools mpileup ${F1} -O u -f ${REF_SUB} ${BAM} | \
 	bcftools call ${F2} -mv -O u | \
-	bcftools norm -f ${REF} -d all -O u | \
+	bcftools norm -f ${REF_SUB} -d all -O u | \
 	bcftools sort -O z > ${VCF}
 
 	#index the vcf file
 	bcftools index ${VCF}
 
+#Download vcf file
+vcf_download:
+	#make directory for vcf files
+	mkdir -p $(dir ${VCF})
+	#download vcf file
+	curl -L ${VCF_URL} > ${VCF}
+	#index the vcf file
+	bcftools index ${VCF}
+
 #Merge VCF files from all samples
 merge:
-	bcftools merge -O z $(dir ${VCF})*vcf.gz > $(dir ${VCF})all_variants.vcf.gz
-
-index_gff:
-	#sort and compress GFF file
-	cat ${GFF} | sort -k1,1 -k4,4n -k5,5n -t$$'\t' | awk 'NF' | bgzip -c > ${GFF}.gz
-	#Index the GFF file
-	tabix -p gff ${GFF}.gz
-
-vep:
-	#make directory for annotation output
-	mkdir -p $(dir ${ANN})
-	#Run VEP
-	micromamba run -n vep \
-		${VEP_DIR} \
-		-i ${VCF} \
-		-o ${ANN} \
-		--gff ${GFF}.gz \
-		--fasta ${REF} \
-		--force_overwrite
+	bcftools merge -O z $(dir ${VCF})*vcf.gz > $(dir ${VCF})merged_variants.vcf.gz

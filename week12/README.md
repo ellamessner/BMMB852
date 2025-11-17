@@ -26,5 +26,25 @@ make variants GENE=SMAD4 TREATMENT=N
 make variants GENE=SMAD4 TREATMENT=T
 ```
 
+## Download and index gold standard variants
+```bash
+make vcf_download VCF=vcf/DeepVariant.vcf.gz
+```
 
+## Renme sample in DeepVariant VCF to prevent duplicate sample names
+```bash
+bcftools reheader -s <(printf "DeepVariant\n") vcf/DeepVariant.vcf.gz > vcf/DeepVariant2.vcf.gz
+mv vcf/DeepVariant2.vcf.gz vcf/DeepVariant.vcf.gz
+```
+
+## Merge vcf files
+```bash
+make merge
+```
+
+## Comparison of variants
+
+According to my analysis, there is one variant in SMAD4 that is unique to the tumor sample. This variant is a G to GA indel at position 51,047,193. This is also the only variant that appears in the gold standard DeepVariant VCF.
+
+## References
 Tascilar, Metin, Halcyon G. Skinner, Christophe Rosty, et al. “The SMAD4 Protein and Prognosis of Pancreatic Ductal Adenocarcinoma.” Clinical Cancer Research 7, no. 12 (2001): 4115–21.
