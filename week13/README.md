@@ -72,10 +72,6 @@ alignments/W2.bam \
 alignments/W3.bam
 ```
 
-Filter the count matrix to include only rows for the scaffold NW_027476106.1 :
-```bash
-grep NW_027476106.1 counts.txt > filtered_counts.txt
-```
 
 ## Clean count matrix
 
