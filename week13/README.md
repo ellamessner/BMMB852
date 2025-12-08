@@ -1,41 +1,95 @@
-# NCBI Datasets
+# Week 13 - Count matrix
 
-https://www.ncbi.nlm.nih.gov/datasets
+I analyzed an RNAseq dataset from *Megalopta genalis*, a species of sweat bee that is facultatively eusocial. This dataset compares the brain transcriptomes of queens and workers (Jones et al., 2017). The genome of *M genalis* is not fully assembled, so I aligned reads to a single scaffold that contains a gene that is relevant to my research.
 
-This zip archive contains an NCBI Datasets Data Package.
+![alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Megalopta_genalis_side_view.jpg/640px-Megalopta_genalis_side_view.jpg)
 
-NCBI Datasets Data Packages can include sequence, annotation and other data files, and metadata in one or more data report files.
-Data report files are in JSON Lines format.
+(Look how cute these guys are!)
 
----
-## FAQs
-### Where is the data I requested?
+## Makefile summary
+My makefile contains the following code:\
+**help:** explains usage\
+**genome:** downloads and indexes a reference genome from NCBI and downloads the gff file\
+**reads:** downloads reads from SRA and generates read statistics\
+**qc:** trims reads and generates a fastqc report both before and after trimming\
+**align:** aligns trimmed reads to the reference genome\
+**stats:** generates simple alignment statistics and generates a wiggle file
 
-Your data is in the subdirectory `ncbi_dataset/data/` contained within this zip archive.
+## Design file summary
+The design file contains the following columns:
+- **srr**: the SRA run ID for each sample
+- **sampleid**: an identification number for each bee
+- **treatment**: whether the sample is from a queen or a worker
 
-### I still can't find my data, can you help?
+## Code to run pipeline
 
-We have identified a bug affecting Mac Safari users. When downloading data from the NCBI Datasets web interface, you may see only this README file after the download has completed (while other files appear to be missing).
-As a workaround to prevent this issue from recurring, we recommend disabling automatic zip archive extraction in Safari until Apple releases a bug fix.
-For more information, visit:
-https://www.ncbi.nlm.nih.gov/datasets/docs/reference-docs/mac-zip-bug/
+Download and index the reference genome
+```bash
+make genome GENOME=NW_027476106.1 GEN_NAME=Megalopta
+```
 
-### How do I work with JSON Lines data reports?
+To run the pipeline for a single sample, the following code can be used:
+```bash
+make reads qc align stats SRR=SRR3948582 SAMPLEID=queen1 \
+GENOME=NW_027476106.1 PAIRED=true NREADS=10000
+```
 
-Visit our JSON Lines data report documentation page:
-https://www.ncbi.nlm.nih.gov/datasets/docs/v2/tutorials/working-with-jsonl-data-reports/
+The reads can be downloaded, trimmed, and aligned in parallel using the following code:
+```bash
+cat design.csv |\
+parallel -j 6 --eta --lb --colsep , --header : \
+make reads qc align stats SRR={srr} SAMPLEID={sampleid} \
+GENOME=NW_027476106.1 PAIRED=true NREADS=100000
+```
+This results in the following output:
+- **genome**:
+  - indexed reference genome
+  - gff file for the reference genome
+- **reads**:
+  - fastq files for each sample both before and after trimming
+- **reports**:
+  - fastqc reports for each sample both before and after trimming
+  - alignment statistics for all samples in a single text file
+- **alignments**:
+  - sorted and indexed bam file for each sample
+  - wiggle file for each sample for visualization
 
-### What is NCBI Datasets?
 
-NCBI Datasets is a resource that lets you easily gather data from across NCBI databases. Find and download gene, transcript, protein and genome sequences, annotation and metadata.
+## Alignment example ##
+![alt text](image-1.png)
 
-### Where can I find NCBI Datasets documentation?
+This screenshot shows the alignment of reads from sample Q1 to the gene COX5A, an enzyme involved in the electron transport chain. Reads align to the exons on each end of the gene and not to the intron in the middle, confirming that this is RNAseq data. We also see that the reads are not strand specific.
 
-Visit the NCBI Datasets documentation pages:
-https://www.ncbi.nlm.nih.gov/datasets/docs/
+## Generating count matrix
+To generate a count matrix for all samples, the following code can be used:
+```bash
+featureCounts -a genome/Megalopta.gtf -p -o counts.txt \
+alignments/Q1.bam \
+alignments/Q2.bam \
+alignments/Q3.bam \
+alignments/W1.bam \
+alignments/W2.bam \
+alignments/W3.bam
+```
 
----
+Filter the count matrix to include only rows for the scaffold NW_027476106.1 :
+```bash
+grep NW_027476106.1 counts.txt > filtered_counts.txt
+```
 
-National Center for Biotechnology Information
-National Library of Medicine
-info@ncbi.nlm.nih.gov
+## Clean count matrix
+
+Filter the count matrix to include only rows for the scaffold NW_027476106.1:
+
+```bash
+( head -n 3 counts.txt; grep "NW_027476106.1" counts.txt ) > filtered_counts.txt
+```
+
+Convert count matrix to csv:
+```bash
+Rscript src/r/format_featurecounts.r -c filtered_counts.txt -o counts.csv
+```
+
+No genes on this scaffold are dramatically differentially expressed between queens and workers, but the expression of LOC143261131 is approximately doubled on average in queens relative to workers.
+
+![alt text](image-3.png)
