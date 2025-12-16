@@ -113,4 +113,11 @@ src/r/plot_heatmap.r -c edger.csv -d design.csv -o heatmap.pdf
 
 ## Functional analysis
 
-It is not possible to perform functional analysis on just two genes. 
+It is not possible to perform functional enrichment analysis on just two genes. However, I identified human orthologs for both Cip4 and wus and visualized their functions in genescape. Cip4 is orthologous to formin-binding protein 1 (FNBP1), which is involved in cytoskeleton formation. Wus is orthologous to the heat shock protein DNAJC22. Analysis in genescape indicates that these genes share very few GO terms; they are both protein binding, but otherwise have distinct functions.
+
+The following code can be used to perform enrichment analysis using enrichr for datasets with more differentially expressed genes:
+```bash
+bio enrichr -c edger.csv 
+```
+
+For this dataset, the output includes only headers, as there were no significantly enriched terms.
