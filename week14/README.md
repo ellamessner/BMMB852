@@ -86,6 +86,11 @@ Rscript src/r/format_featurecounts.r -c filtered_counts.txt -o counts.csv
 sed -i '' '1s/.*/name,gene,Q1,Q2,Q3,W1,W2,W3/' counts.csv
 ```
 
+The first row of the count matrix is repeated and must be removed in order to run edgeR:
+```bash
+sed -i '' '2d' counts.csv
+```
+
 ## Differential expression analysis with edgeR
 ```bash
 Rscript src/r/edger.r -d design.csv -c counts.csv
